@@ -1,2 +1,2 @@
 # Transnormer
-Official implementation of Transnormer in The Devil in Linear Transformer
+Official implementation of Transnormer in our EMNLP 2022 paper - The Devil in Linear Transformer
