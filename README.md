@@ -6,7 +6,7 @@ Official implementation of Transnormer in our EMNLP 2022 paper - [The Devil in L
 
 ## Overall Architecture
 
-<div  align="center"> <img src="./network.png" width = "80%" height = "80%" alt="network" align=center /></div>
+<div  align="center"> <img src="./network.png" width = "60%" height = "60%" alt="network" align=center /></div>
 
  
 
