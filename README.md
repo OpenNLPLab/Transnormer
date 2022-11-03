@@ -6,9 +6,7 @@ Official implementation of Transnormer in our EMNLP 2022 paper - [The Devil in L
 
 ## Overall Architecture
 
-
-
-<div  align="center"> <img src="./network.png" width = "50%" height = "50%" alt="network" align=center /></div>
+<div  align="center"> <img src="./network.png" width = "100%" height = "100%" alt="network" align=center /></div>
 
  
 
@@ -16,7 +14,7 @@ Official implementation of Transnormer in our EMNLP 2022 paper - [The Devil in L
 
 ### Environment Preparation
 
-Our experiment uses two conda environments, where **Autoregressive language modeling**, **Bidirectional language modeling** need to configure the environment according to the NLP part, and **Long Range Arena Benchmark** needs to configure the environment according to LRA part.
+Our experiment uses two conda environments, where Autoregressive language modeling, Bidirectional language modeling needs to configure the environment according to the NLP part, and Long Range Arena Benchmark needs to configure the environment according to the LRA part.
 
 #### NLP
 
