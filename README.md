@@ -142,12 +142,12 @@ where `n_gpu` is the number of GPUs you use, the arch is chosen from `roberta_tr
 
 ### Long Range Arena Benchmark
 
-
+wip
 
 
 
 ## Todo
 
-- [ ] Bidirectional language modeling
+- [x] Bidirectional language modeling
 - [ ] Long Range Arena Benchmark
 - [ ] transnormer-pytorch
