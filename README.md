@@ -40,7 +40,7 @@ wip.
 
 
 
-### Autoregressive language modeling
+### Autoregressive language model
 
 #### 1) Preprocess the data
 
@@ -70,21 +70,73 @@ This step comes from [fairseq](https://github.com/facebookresearch/fairseq/blob/
 
 
 
-#### 2) Train a language model
+#### 2) Train the autoregressive language model
 
 Use the following command to train language model:
 
 ```
-bash train_lm.sh n_gpu arch path_to_bin_data
+bash train_alm.sh n_gpu arch path_to_bin_data
 ```
 
 where `n_gpu` is the number of GPUs you use, the arch is chosen from `transnormer_t1` and `transnormer_t2`, and `path_to_bin_data` is the path of preprocessing data.
 
 
 
-### Bidirectional language modeling
+### Bidirectional language model
+
+#### 1) Preprocess the data
+
+First download the [WikiText-103 dataset](https://www.salesforce.com/products/einstein/ai-research/the-wikitext-dependency-language-modeling-dataset/):
+
+```
+wget https://s3.amazonaws.com/research.metamind.io/wikitext/wikitext-103-raw-v1.zip
+unzip wikitext-103-raw-v1.zip
+```
+
+Next encode it with the GPT-2 BPE:
+
+```
+mkdir -p gpt2_bpe
+wget -O gpt2_bpe/encoder.json https://dl.fbaipublicfiles.com/fairseq/gpt2_bpe/encoder.json
+wget -O gpt2_bpe/vocab.bpe https://dl.fbaipublicfiles.com/fairseq/gpt2_bpe/vocab.bpe
+for SPLIT in train valid test; do \
+    python -m examples.roberta.multiprocessing_bpe_encoder \
+        --encoder-json gpt2_bpe/encoder.json \
+        --vocab-bpe gpt2_bpe/vocab.bpe \
+        --inputs wikitext-103-raw/wiki.${SPLIT}.raw \
+        --outputs wikitext-103-raw/wiki.${SPLIT}.bpe \
+        --keep-empty \
+        --workers 60; \
+done
+```
+
+Finally preprocess/binarize the data using the GPT-2 fairseq dictionary:
+
+```
+wget -O gpt2_bpe/dict.txt https://dl.fbaipublicfiles.com/fairseq/gpt2_bpe/dict.txt
+fairseq-preprocess \
+    --only-source \
+    --srcdict gpt2_bpe/dict.txt \
+    --trainpref wikitext-103-raw/wiki.train.bpe \
+    --validpref wikitext-103-raw/wiki.valid.bpe \
+    --testpref wikitext-103-raw/wiki.test.bpe \
+    --destdir data-bin/wikitext-103 \
+    --workers 60
+```
+
+This step comes from [fairseq](https://github.com/facebookresearch/fairseq/blob/main/examples/roberta/README.pretraining.md).
 
 
+
+#### 2) Train the bidirectional language model
+
+Use the following command to train language model:
+
+```
+bash train_blm.sh n_gpu arch path_to_bin_data
+```
+
+where `n_gpu` is the number of GPUs you use, the arch is chosen from `roberta_transnormer_t1` and `roberta_transnormer_t2`, and `path_to_bin_data` is the path of preprocessing data.
 
 
 
