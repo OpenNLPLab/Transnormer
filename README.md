@@ -1,10 +1,32 @@
 # Transnormer
 
-Official implementation of Transnormer in our EMNLP 2022 paper - [The Devil in Linear Transformer](https://arxiv.org/abs/2210.10340).
+Official implementation of Transnormer in our EMNLP 2022 paper - [The Devil in Linear Transformer](https://arxiv.org/abs/2210.10340). This repo does not contain specific codes, but only scripts and some instructions on how to reproduce the results of the paper. The overall directory is as follows:
+
+
+- [Transnormer](#transnormer)
+  - [Overall Architecture](#overall-architecture)
+  - [Experiments](#experiments)
+    - [Environment Preparation](#environment-preparation)
+      - [Env1](#env1)
+      - [Env2](#env2)
+    - [Autoregressive language model](#autoregressive-language-model)
+      - [1) Preprocess the data](#1-preprocess-the-data)
+      - [2) Train the autoregressive language model](#2-train-the-autoregressive-language-model)
+    - [Bidirectional language model](#bidirectional-language-model)
+      - [1) Preprocess the data](#1-preprocess-the-data-1)
+      - [2) Train the bidirectional language model](#2-train-the-bidirectional-language-model)
+    - [LRA](#lra)
+      - [1) Preparation](#1-preparation)
+      - [2) Training](#2-training)
+  - [Standalone code](#standalone-code)
+  - [Citation](#citation)
+  - [Wip](#wip)
 
 
 
 ## Overall Architecture
+
+The overall network architecture is as follows:
 
 <div  align="center"> <img src="./network.png" width = "60%" height = "60%" alt="network" align=center /></div>
 
@@ -14,14 +36,14 @@ Official implementation of Transnormer in our EMNLP 2022 paper - [The Devil in L
 
 ### Environment Preparation
 
-Our experiment uses two conda environments, where Autoregressive language modeling, Bidirectional language modeling needs to configure the environment according to the NLP part, and Long Range Arena Benchmark needs to configure the environment according to the LRA part.
+Our experiment uses two conda environments, where Autoregressive language modeling, Bidirectional language modeling needs to configure the environment according to the Env1 part, and LRA needs to configure the environment according to the Env2 part.
 
-#### NLP
+#### Env1
 
 First build the conda environment based on the yaml file:
 
 ```
-conda env create --file environment.yml
+conda env create --file env.yaml
 ```
 
 Then install our version of fairseq:
@@ -34,9 +56,13 @@ pip install --editable ./
 
 
 
-#### LRA
+#### Env2
 
-wip.
+Build the conda environment based on the yaml file:
+
+```
+conda env create --file env2.yaml
+```
 
 
 
@@ -75,10 +101,10 @@ This step comes from [fairseq](https://github.com/facebookresearch/fairseq/blob/
 Use the following command to train language model:
 
 ```
-bash train_alm.sh n_gpu arch path_to_bin_data
+bash script_alm.sh
 ```
 
-where `n_gpu` is the number of GPUs you use, the arch is chosen from `transnormer_t1` and `transnormer_t2`, and `path_to_bin_data` is the path of preprocessing data.
+You should change data_dir to preprocessed data.
 
 
 
@@ -133,21 +159,66 @@ This step comes from [fairseq](https://github.com/facebookresearch/fairseq/blob/
 Use the following command to train language model:
 
 ```
-bash train_blm.sh n_gpu arch path_to_bin_data
+bash train_blm.sh
 ```
 
-where `n_gpu` is the number of GPUs you use, the arch is chosen from `roberta_transnormer_t1` and `roberta_transnormer_t2`, and `path_to_bin_data` is the path of preprocessing data.
+You should change data_dir to preprocessed data.
 
 
 
-### Long Range Arena Benchmark
+### LRA
 
-wip
+#### 1) Preparation
+
+Download the codebase:
+
+```
+git clone https://github.com/OpenNLPLab/lra.gits
+```
 
 
 
-## Todo
+#### 2) Training
 
-- [x] Bidirectional language modeling
-- [ ] Long Range Arena Benchmark
-- [ ] transnormer-pytorch
+Use the following script to run the experiments, you should change `PREFIX` to your lra path, change `tasks` to a specific task and change `model_config` to t1 or t2:
+
+```
+python script_lra.py
+```
+
+
+
+## Standalone code
+
+
+
+## Citation
+
+```
+@inproceedings{qin-etal-2022-devil,
+    title = "The Devil in Linear Transformer",
+    author = "Qin, Zhen  and
+      Han, Xiaodong  and
+      Sun, Weixuan  and
+      Li, Dongxu  and
+      Kong, Lingpeng  and
+      Barnes, Nick  and
+      Zhong, Yiran",
+    booktitle = "Proceedings of the 2022 Conference on Empirical Methods in Natural Language Processing",
+    month = dec,
+    year = "2022",
+    address = "Abu Dhabi, United Arab Emirates",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2022.emnlp-main.473",
+    pages = "7025--7041",
+    abstract = "Linear transformers aim to reduce the quadratic space-time complexity of vanilla transformers. However, they usually suffer from degraded performances on various tasks and corpus. In this paper, we examine existing kernel-based linear transformers and identify two key issues that lead to such performance gaps: 1) unbounded gradients in the attention computation adversely impact the convergence of linear transformer models; 2) attention dilution which trivially distributes attention scores over long sequences while neglecting neighbouring structures. To address these issues, we first identify that the scaling of attention matrices is the devil in unbounded gradients, which turns out unnecessary in linear attention as we show theoretically and empirically. To this end, we propose a new linear attention that replaces the scaling operation with a normalization to stabilize gradients. For the issue of attention dilution, we leverage a diagonal attention to confine attention to only neighbouring tokens in early layers. Benefiting from the stable gradients and improved attention, our new linear transformer model, transNormer, demonstrates superior performance on text classification and language modeling tasks, as well as on the challenging Long-Range Arena benchmark, surpassing vanilla transformer and existing linear variants by a clear margin while being significantly more space-time efficient. The code is available at https://github.com/OpenNLPLab/Transnormer .",
+}
+```
+
+
+
+## Wip
+
+- [ ] Check the training script.
+- [ ] Add standalone code.
+- [ ] Update transnormer-pytorch.
