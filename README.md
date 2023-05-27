@@ -173,7 +173,7 @@ You should change data_dir to preprocessed data.
 Download the codebase:
 
 ```
-git clone https://github.com/OpenNLPLab/lra.gits
+git clone https://github.com/OpenNLPLab/lra.git
 ```
 
 
