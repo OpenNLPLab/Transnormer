@@ -170,7 +170,7 @@ for i, task in enumerate(tasks):
                 pid = os.fork()
                 if pid == 0:
                     os.system(
-                        f"sh {PREFIX}/run_task.sh {task} {arch} {total_batch} {lr} {n_layers} {d_model} {norm} {prenorm} {use_softmax} {act_fun} {expand_ratio_ffn} {num_heads} {gpu}"
+                        f"sh {PREFIX}/train_lra.sh {task} {arch} {total_batch} {lr} {n_layers} {d_model} {norm} {prenorm} {use_softmax} {act_fun} {expand_ratio_ffn} {num_heads} {gpu}"
                     )
                     sys.exit(0)
         elif task == "cifar":
@@ -183,7 +183,7 @@ for i, task in enumerate(tasks):
             pid = os.fork()
             if pid == 0:
                 os.system(
-                    f"sh {PREFIX}/run_task.sh {task} {arch} {total_batch} {lr} {n_layers} {d_model} {norm} {prenorm} {use_softmax} {act_fun} {expand_ratio_ffn} {num_heads} {gpu}"
+                    f"sh {PREFIX}/train_lra.sh {task} {arch} {total_batch} {lr} {n_layers} {d_model} {norm} {prenorm} {use_softmax} {act_fun} {expand_ratio_ffn} {num_heads} {gpu}"
                 )
                 sys.exit(0)
         elif task == "listops":
@@ -196,7 +196,7 @@ for i, task in enumerate(tasks):
             pid = os.fork()
             if pid == 0:
                 os.system(
-                    f"sh {PREFIX}/run_task.sh {task} {arch} {total_batch} {lr} {n_layers} {d_model} {norm} {prenorm} {use_softmax} {act_fun} {expand_ratio_ffn} {num_heads} {gpu}"
+                    f"sh {PREFIX}/train_lra.sh {task} {arch} {total_batch} {lr} {n_layers} {d_model} {norm} {prenorm} {use_softmax} {act_fun} {expand_ratio_ffn} {num_heads} {gpu}"
                 )
                 sys.exit(0)
         elif task == "pathfinder":
@@ -209,7 +209,7 @@ for i, task in enumerate(tasks):
             pid = os.fork()
             if pid == 0:
                 os.system(
-                    f"sh {PREFIX}/run_task.sh {task} {arch} {total_batch} {lr} {n_layers} {d_model} {norm} {prenorm} {use_softmax} {act_fun} {expand_ratio_ffn} {num_heads} {gpu}"
+                    f"sh {PREFIX}/train_lra.sh {task} {arch} {total_batch} {lr} {n_layers} {d_model} {norm} {prenorm} {use_softmax} {act_fun} {expand_ratio_ffn} {num_heads} {gpu}"
                 )
                 sys.exit(0)
         elif task == "pathfinderx":
@@ -222,7 +222,7 @@ for i, task in enumerate(tasks):
             pid = os.fork()
             if pid == 0:
                 os.system(
-                    f"sh {PREFIX}/run_task.sh {task} {arch} {total_batch} {lr} {n_layers} {d_model} {norm} {prenorm} {use_softmax} {act_fun} {expand_ratio_ffn} {num_heads} {gpu}"
+                    f"sh {PREFIX}/train_lra.sh {task} {arch} {total_batch} {lr} {n_layers} {d_model} {norm} {prenorm} {use_softmax} {act_fun} {expand_ratio_ffn} {num_heads} {gpu}"
                 )
                 sys.exit(0)
         elif task == "aan":
@@ -235,6 +235,6 @@ for i, task in enumerate(tasks):
             pid = os.fork()
             if pid == 0:
                 os.system(
-                    f"sh {PREFIX}/run_task.sh {task} {arch} {total_batch} {lr} {n_layers} {d_model} {norm} {prenorm} {use_softmax} {act_fun} {expand_ratio_ffn} {num_heads} {gpu}"
+                    f"sh {PREFIX}/train_lra.sh {task} {arch} {total_batch} {lr} {n_layers} {d_model} {norm} {prenorm} {use_softmax} {act_fun} {expand_ratio_ffn} {num_heads} {gpu}"
                 )
                 sys.exit(0)
