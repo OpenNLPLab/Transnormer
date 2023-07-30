@@ -43,7 +43,14 @@ Our experiment uses two conda environments, where Autoregressive language modeli
 First build the conda environment based on the yaml file:
 
 ```
-conda env create --file env.yaml
+conda env create --file env1.yaml
+```
+
+If you meet an error when installing torch, just remove torch and torchvision in the yaml file, rerun the above command, and then run the below commands:
+
+```
+pip install torch==1.8.1+cu111 torchvision==0.9.1+cu111 -f https://download.pytorch.org/whl/torch_stable.html
+pip install -r requirements_env1.txt
 ```
 
 Then install our version of fairseq:
@@ -104,7 +111,7 @@ Use the following command to train language model:
 bash script_alm.sh
 ```
 
-You should change data_dir to preprocessed data.
+You should change data_dir to preprocessed data. If you are using a slurm cluster, please add `--distributed-port $PORT` to fairseq-train's parameter.
 
 
 
@@ -162,7 +169,7 @@ Use the following command to train language model:
 bash train_blm.sh
 ```
 
-You should change data_dir to preprocessed data.
+You should change data_dir to preprocessed data. If you are using a slurm cluster, please add `--distributed-port $PORT` to fairseq-train's parameter.
 
 
 

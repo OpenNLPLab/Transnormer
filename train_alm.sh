@@ -17,7 +17,7 @@ UPDATE_FREQ=$(( 128 / $BATCH_SIZE / $GPUS ))
 fairseq-train --task language_modeling \
     $DATA_DIR \
     --save-dir checkpoints/$prefix/$ARCH \
-    --distributed-world-size $GPUS  --distributed-port $PORT \
+    --distributed-world-size $GPUS \
     --arch $ARCH --share-decoder-input-output-embed \
     --dropout 0.1 \
     --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm $CLIP_NORM \
